@@ -6,7 +6,8 @@ token = "MTEwMDE2MjIyNjYyMDQ3MzQ4NA.G1vSmM.8oCkJU-KkgetM7BYXzBiAUtEBapwVOSwtkxgi
 channel_id = 1100162737100836947  # Remove quotes to use an integer ID
 log_file = "/home/eric/minecraft/logs/latest.log"
 
-client = discord.Client()
+intents = discord.Intents.default()
+client = discord.Client(intents=intents)
 
 async def send_logs():
     channel = client.get_channel(channel_id)
@@ -15,7 +16,7 @@ async def send_logs():
             lines = pygtail.Pygtail(log_file)
             for line in lines:
                 await channel.send(line)
-        except FileNotFoundError:  # Move the except block outside the for loop
+        except FileNotFoundError:
             pass
         await asyncio.sleep(1)
 
